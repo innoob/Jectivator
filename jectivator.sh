@@ -198,6 +198,7 @@ if [ ! -f "/bin/curl" ]; then
 		if [ ! -f "/bin/wget" ]; then
 			if [ ! -f "/usr/bin/wget" ]; then
 				logerro "缺少必要依赖：wget 或 curl"
+				exit
 			fi
 		fi
 	fi
@@ -205,6 +206,7 @@ fi
 if [ ! -f "/bin/unzip" ]; then
 	if [ ! -f "/usr/bin/unzip" ]; then
 		logerro "缺少必要依赖：unzip"
+		exit
 	fi
 fi
 logdone "系统包含必要的依赖"
