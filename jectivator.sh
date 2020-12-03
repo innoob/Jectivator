@@ -309,9 +309,9 @@ find_home_logs()
 				file=`ls $jb_cache_prefix | grep IntelliJIdea*`
 				file="$jb_cache_prefix/$file/log/idea.log"
 				if [ -f "${file}" ]; then
-					home_dir=`cat $file | grep Djb.vmOptionsFile | tail -n1`;
-					home_dir="${home_dir#*vmOptionsFile=}"; 
-					home_dir="${home_dir%bin\/idea*}";
+					home_dir=`cat $file | grep "Starting file watcher" | tail -n1`;
+					home_dir="${home_dir#*Starting file watcher: }"; 
+					home_dir="${home_dir%bin\/fsnotifier*}";
 					if [ -d "${home_dir}" ]; then
 						echo "dir:$home_dir"
 						iu_home=$home_dir;
