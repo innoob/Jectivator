@@ -294,7 +294,7 @@ find_home_desk()
 	done
 	unset desks;
 }
-find_home_desk "${deskfile[*]}"
+#find_home_desk "${deskfile[*]}"
 
 find_home_logs()
 {
@@ -309,11 +309,15 @@ find_home_logs()
 				file=`ls $jb_cache_prefix | grep IntelliJIdea*`
 				file="$jb_cache_prefix/$file/log/idea.log"
 				if [ -f "${file}" ]; then
-					home_dir=`cat $file | grep "Starting file watcher" | tail -n1`;
-					home_dir="${home_dir#*Starting file watcher: }"; 
-					home_dir="${home_dir%bin\/fsnotifier*}";
+					home_dir=`cat $file | grep Djb.vmOptionsFile | tail -n1`;
+					home_dir="${home_dir#*vmOptionsFile=}"; 
+					home_dir="${home_dir%bin\/webstorm*}";
+					if [[ "$home_dir" =~ "$HOME" ]]; then
+						home_dir=`cat $file | grep "Starting file watcher" | tail -n1`;
+						home_dir="${home_dir#*Starting\ file\ watcher:\ }"; 
+						home_dir="${home_dir%bin\/fsnotifier*}";
+					fi
 					if [ -d "${home_dir}" ]; then
-						echo "dir:$home_dir"
 						iu_home=$home_dir;
 					fi
 				fi
