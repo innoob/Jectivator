@@ -294,7 +294,7 @@ find_home_desk()
 	done
 	unset desks;
 }
-#find_home_desk "${deskfile[*]}"
+find_home_desk "${deskfile[*]}"
 
 find_home_logs()
 {
