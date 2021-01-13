@@ -311,7 +311,7 @@ find_home_logs()
 				if [ -f "${file}" ]; then
 					home_dir=`cat $file | grep Djb.vmOptionsFile | tail -n1`;
 					home_dir="${home_dir#*vmOptionsFile=}"; 
-					home_dir="${home_dir%bin\/webstorm*}";
+					home_dir="${home_dir%bin\/idea*}";
 					if [[ "$home_dir" =~ "$HOME" ]]; then
 						home_dir=`cat $file | grep "Starting file watcher" | tail -n1`;
 						home_dir="${home_dir#*Starting\ file\ watcher:\ }"; 
