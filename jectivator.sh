@@ -431,6 +431,29 @@ find_home_logs()
 }
 find_home_logs "${products[*]}"
 
+home_notfound()
+{
+	if [ -d "${ws_home}" ]; then
+		break
+	elif [ -d "${ps_home}" ]; then
+		break
+	elif [ -d "${py_home}" ]; then
+		break
+	elif [ -d "${db_home}" ]; then
+		break
+	elif [ -d "${cl_home}" ]; then
+		break
+	elif [ -d "${go_home}" ]; then
+		break
+	elif [ -d "${iu_home}" ]; then
+		break
+	else
+		logerro "系统中未找到任何Jetbrains产品"
+		exit
+	fi
+}
+home_notfound
+
 find_proinfo()
 {
 	infos=(
