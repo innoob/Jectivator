@@ -313,9 +313,15 @@ find_home_logs()
 					home_dir="${home_dir#*vmOptionsFile=}"; 
 					home_dir="${home_dir%bin\/idea*}";
 					if [[ "$home_dir" =~ "$HOME" ]]; then
-						home_dir=`cat $file | grep "Starting file watcher" | tail -n1`;
-						home_dir="${home_dir#*Starting\ file\ watcher:\ }"; 
-						home_dir="${home_dir%bin\/fsnotifier*}";
+						home_dir2=`cat $file | grep "Starting file watcher" | tail -n1`;
+						home_dir2="${home_dir#*Starting\ file\ watcher:\ }"; 
+						home_dir2="${home_dir%bin\/fsnotifier*}";
+						if [ -d "${home_dir2}" ]; then
+							iu_home=$home_dir2;
+						fi
+					fi
+					if [ -d "$iu_home" ]; then
+						continue
 					fi
 					if [ -d "${home_dir}" ]; then
 						iu_home=$home_dir;
