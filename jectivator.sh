@@ -440,19 +440,19 @@ find_home_logs "${products[*]}"
 home_notfound()
 {
 	if [ -d "${ws_home}" ]; then
-		break
+		return
 	elif [ -d "${ps_home}" ]; then
-		break
+		return
 	elif [ -d "${py_home}" ]; then
-		break
+		return
 	elif [ -d "${db_home}" ]; then
-		break
+		return
 	elif [ -d "${cl_home}" ]; then
-		break
+		return
 	elif [ -d "${go_home}" ]; then
-		break
+		return
 	elif [ -d "${iu_home}" ]; then
-		break
+		return
 	else
 		logerro "系统中未找到任何Jetbrains产品"
 		exit
@@ -627,6 +627,9 @@ loginfo "正在检查工作路径"
 workpath="$PWD/.logs"
 if [ ! -d "$workpath" ]; then
 	mkdir "$workpath";
+else
+	rm -r "$workpath";
+	mkdir "$workpath";
 fi
 logdone "工作路径检查完成"
 
@@ -664,10 +667,10 @@ else
 	exit
 fi
 ( rm $workpath/*.jpg;rm $workpath/activecode.zip )
-( mv $workpath/2018.1* $workpath/2018.1.key;mv $workpath/2017.3* $workpath/2017.3.key; )
+( mv $workpath/*2018.1* $workpath/2018.1.key;mv $workpath/*2018.2* $workpath/2018.2.key; )
 
 if [ -f "$workpath/2018.1.key" ]; then
-	if [ -f "$workpath/2017.3.key" ]; then
+	if [ -f "$workpath/2018.2.key" ]; then
 		logdone "解压激活码完成"
 	fi
 else
@@ -677,7 +680,7 @@ fi
 logdone "获取激活码成功"
 ####################-处理激活码-####################
 loginfo "开始处理激活码"
-activecode="$workpath/2018.1.key";
+activecode="$workpath/2018.2.key";
 loginfo "加载激活码文件头"
 certhead="\xff\xff<\x00c\x00e\x00r\x00t\x00i\x00f\x00i\x00c\x00a\x00t\x00e\x00-\x00k\x00e\x00y\x00>\x00";
 loginfo "加载激活码文件"
@@ -700,7 +703,7 @@ activpro(){
 				if [ -d "$iu_home" ]; then
 					iu_major=`echo $iu_version | cut -d\. -f1`
 					if (( $iu_major<2018 )); then
-						logerro "$iu_name版本过低，当前版本:$iu_version 需要版本大于2018.1"
+						logerro "$iu_name版本过低，当前版本:$iu_version 需要版本大于2018.2"
 						unset iu_home
 						continue
 					fi
@@ -712,7 +715,7 @@ activpro(){
 				if [ -d "$ws_home" ]; then
 					ws_major=`echo $ws_version | cut -d\. -f1`
 					if (( $ws_major<2018 )); then
-						logerro "$ws_name版本过低，当前版本:$ws_version 需要版本大于2018.1"
+						logerro "$ws_name版本过低，当前版本:$ws_version 需要版本大于2018.2"
 						unset ws_home
 						continue
 					fi
@@ -724,7 +727,7 @@ activpro(){
 				if [ -d "$py_home" ]; then
 					py_major=`echo $py_version | cut -d\. -f1`
 					if (( $py_major<2018 )); then
-						logerro "$py_name版本过低，当前版本:$py_version 需要版本大于2018.1"
+						logerro "$py_name版本过低，当前版本:$py_version 需要版本大于2018.2"
 						unset py_home
 						continue
 					fi
@@ -736,7 +739,7 @@ activpro(){
 				if [ -d "$ps_home" ]; then
 					ps_major=`echo $ps_version | cut -d\. -f1`
 					if (( $ps_major<2018 )); then
-						logerro "$ps_name版本过低，当前版本:$ps_version 需要版本大于2018.1"
+						logerro "$ps_name版本过低，当前版本:$ps_version 需要版本大于2018.2"
 						unset ps_home
 						continue
 					fi
@@ -748,7 +751,7 @@ activpro(){
 				if [ -d "$db_home" ]; then
 					db_major=`echo $db_version | cut -d\. -f1`
 					if (( $db_major<2018 )); then
-						logerro "$db_name版本过低，当前版本:$db_version 需要版本大于2018.1"
+						logerro "$db_name版本过低，当前版本:$db_version 需要版本大于2018.2"
 						unset db_home
 						continue
 					fi
@@ -760,7 +763,7 @@ activpro(){
 				if [ -d "$cl_home" ]; then
 					cl_major=`echo $cl_version | cut -d\. -f1`
 					if (( $cl_major<2018 )); then
-						logerro "$cl_name版本过低，当前版本:$cl_version 需要版本大于2018.1"
+						logerro "$cl_name版本过低，当前版本:$cl_version 需要版本大于2018.2"
 						unset cl_home
 						continue
 					fi
@@ -772,7 +775,7 @@ activpro(){
 				if [ -d "$go_home" ]; then
 					go_major=`echo $go_version | cut -d\. -f1`
 					if (( $go_major<2018 )); then
-						logerro "$go_name版本过低，当前版本:$go_version 需要版本大于2018.1"
+						logerro "$go_name版本过低，当前版本:$go_version 需要版本大于2018.2"
 						unset go_home
 						continue
 					fi
