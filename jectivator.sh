@@ -646,13 +646,13 @@ if [ ! $? -eq 0 ]; then
 fi
 
 if [ -f "/bin/curl" ]; then
-	( /bin/curl http://idea.medeming.com/jets/images/jihuoma.zip -o $workpath/activecode.zip )
+	( /bin/curl http://idea.medeming.com/a/jihuoma.zip -o $workpath/activecode.zip )
 elif [ -f "/usr/bin/curl" ]; then
-	( /usr/bin/curl http://idea.medeming.com/jets/images/jihuoma.zip -o $workpath/activecode.zip )
+	( /usr/bin/curl http://idea.medeming.com/a/jihuoma.zip -o $workpath/activecode.zip )
 elif [ -f "/bin/wget" ]; then
-	( /bin/wget http://idea.medeming.com/jets/images/jihuoma.zip -O $workpath/activecode.zip )
+	( /bin/wget http://idea.medeming.com/a/jihuoma.zip -O $workpath/activecode.zip )
 elif [ -f "/usr/bin/wget" ];then
-	( /usr/bin/wget http://idea.medeming.com/jets/images/jihuoma.zip -O $workpath/activecode.zip )
+	( /usr/bin/wget http://idea.medeming.com/a/jihuoma.zip -O $workpath/activecode.zip )
 else
 	logerro "无法获取激活码，缺少必要依赖：curl 或 wget"
 	exit
@@ -692,7 +692,7 @@ logwarn "如果未出现二进制内容请将脚本在Bash终端运行"
 logdone "激活码文件加载完成"
 loginfo "正在处理激活码"
 hexkey=`echo -e ${certhead} | xxd -ps`
-hexkey=$hexkey\x00`echo -e ${certkey} | xxd -ps`
+hexkey=$hexkey\x00`echo -en ${certkey} | xxd -ps`
 logdone "激活码处理完成"
 loginfo "开始写入激活码"
 activpro(){
